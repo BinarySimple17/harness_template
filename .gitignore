@@ -1,0 +1,24 @@
+# Артефакты сборки и зависимостей
+node_modules/
+target/
+build/
+dist/
+__pycache__/
+*.class
+*.jar
+
+# Логи и временные файлы (debug-артефакты — см. End of Session)
+*.log
+*.tmp
+*.orig
+*.rej
+
+# Рантайм-артефакты наблюдаемости (не исходники)
+.harness/traces/traces.jsonl
+
+# Локальные настройки агентов
+.claude/settings.local.json
+
+# ОС
+.DS_Store
+Thumbs.db

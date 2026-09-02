@@ -1,0 +1,7 @@
+# Нормализация переводов строк: bash-скрипты и Makefile требуют LF,
+# иначе на Windows они ломаются ("\r: command not found").
+* text=auto
+*.sh text eol=lf
+Makefile text eol=lf
+*.md text
+*.json text

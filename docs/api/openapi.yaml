@@ -1,0 +1,137 @@
+# ЗАПОЛНИТЬ: контракт API проекта. Файл — рабочий пример: секции с «REPLACE»/«ЗАПОЛНИТЬ»
+# заменить на реальные ресурсы; пример /health можно оставить как есть.
+# Валидация: npx --yes @redocly/cli lint docs/api/openapi.yaml
+openapi: 3.1.0
+info:
+  title: REPLACE — Project API
+  version: 0.1.0
+  license:
+    # ЗАПОЛНИТЬ: лицензия проекта
+    name: MIT
+    identifier: MIT
+  description: >
+    ЗАПОЛНИТЬ: назначение API и правила потребления (кто клиенты,
+    модель аутентификации, лимиты). Ключевые решения по API — в docs/adr/.
+servers:
+  - url: http://localhost:8080
+    description: local dev
+# Аутентификация по умолчанию для всех операций; публичные эндпоинты
+# (например /health) переопределяют на security: [] у себя.
+security:
+  - bearerAuth: []
+tags:
+  - name: system
+    description: Служебные эндпоинты
+  - name: REPLACE-domain
+    description: "ЗАПОЛНИТЬ: доменные ресурсы проекта"
+
+paths:
+  /health:
+    get:
+      tags: [system]
+      operationId: getHealth
+      summary: Живость сервиса
+      security: []
+      responses:
+        '200':
+          description: Сервис работает
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '503':
+          description: Сервис деградировал/недоступен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /REPLACE-resource:
+    get:
+      tags: [REPLACE-domain]
+      operationId: listReplaceResources
+      summary: "ЗАПОЛНИТЬ: краткое описание операции"
+      description: |
+        ЗАПОЛНИТЬ: детали, права доступа (какой роли доступно), пагинация.
+        Право доступа проверяется до выборки (pre-filter) — см. AGENTS.md / ADR по RBAC.
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          description: Курсор пагинации из предыдущего ответа
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, next_cursor]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ReplaceResource'
+                  next_cursor:
+                    type: [string, 'null']
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+components:
+  securitySchemes:
+    # ЗАПОЛНИТЬ: фактическая схема аутентификации проекта
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    Unauthorized:
+      description: Не аутентифицирован
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Недостаточно прав (в ответе нет деталей о чужих данных)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Health:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: Машинный код ошибки (например auth_required, access_denied)
+        message:
+          type: string
+          description: Человекочитаемое сообщение (без чувствительных деталей)
+        trace_id:
+          type: string
+          description: Идентификатор трейса для расследования
+    ReplaceResource:
+      type: object
+      required: [id]
+      properties:
+        id:
+          type: string
+          format: uuid
+        # ЗАПОЛНИТЬ: поля ресурса; связи с моделью данных — docs/diagrams/er-data-model.md

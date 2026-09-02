@@ -1,0 +1,68 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "Project Setup",
+      "description": "Clean checkout: dependencies install and ./init.sh passes from scratch. REPLACE with your project's setup details.",
+      "behavior": "From a clean checkout, `./init.sh` installs dependencies and finishes verification with exit code 0.",
+      "verification": "./init.sh",
+      "dependencies": [],
+      "state": "not_started",
+      "status": "not-started",
+      "evidence": "",
+      "layers": [
+        {
+          "label": "layer-1-static",
+          "cmd": "./init.sh",
+          "repair": "Read the failing step printed by ./init.sh and fix it, then re-run."
+        }
+      ]
+    },
+    {
+      "id": "feat-002",
+      "name": "First User-Facing Feature",
+      "description": "REPLACE: the first concrete behavior the agent should implement (one session of work).",
+      "behavior": "REPLACE: observable behavior in one sentence — what a user/system can do after this feature lands.",
+      "verification": "REPLACE: the command that proves this behavior (e.g. mvn test -Dtest=... , pytest tests/test_x.py, npm test -- feature)",
+      "dependencies": ["feat-001"],
+      "state": "not_started",
+      "status": "not-started",
+      "evidence": "",
+      "layers": [
+        {
+          "label": "layer-1-static",
+          "cmd": "REPLACE: build/lint/type-check command",
+          "repair": "REPLACE: what to fix when this layer fails."
+        },
+        {
+          "label": "layer-2-runtime",
+          "cmd": "REPLACE: test command covering this behavior",
+          "repair": "REPLACE: what to fix when tests fail."
+        },
+        {
+          "label": "layer-3-e2e",
+          "cmd": "REPLACE: end-to-end / manual check command (or remove this layer if not applicable)",
+          "repair": "REPLACE: what to fix when the e2e check fails."
+        }
+      ]
+    },
+    {
+      "id": "feat-003",
+      "name": "Verification Coverage",
+      "description": "Add or confirm tests, type checks, linting, or manual verification for the active feature.",
+      "behavior": "Every implemented feature has a passing verification command recorded as evidence.",
+      "verification": "./init.sh",
+      "dependencies": ["feat-002"],
+      "state": "not_started",
+      "status": "not-started",
+      "evidence": "",
+      "layers": [
+        {
+          "label": "layer-2-runtime",
+          "cmd": "./init.sh",
+          "repair": "Add the missing test/check for the uncovered behavior, then re-run."
+        }
+      ]
+    }
+  ]
+}
